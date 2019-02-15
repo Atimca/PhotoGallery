@@ -23,7 +23,7 @@ class AlbumsViewController: UIViewController {
     }()
 
     private let activityIndicator: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView()
+        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
         activity.translatesAutoresizingMaskIntoConstraints = false
         activity.hidesWhenStopped = true
         return activity
@@ -35,6 +35,7 @@ class AlbumsViewController: UIViewController {
         self.downloadService = downloadService
         super.init(nibName: nil, bundle: nil)
         setupLayout()
+        render(with: state)
         updateAlbums()
     }
 
@@ -46,6 +47,7 @@ class AlbumsViewController: UIViewController {
 
     private func setupLayout() {
         title = "Albums"
+        view.backgroundColor = .white
         view.addSubview(tableView)
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true

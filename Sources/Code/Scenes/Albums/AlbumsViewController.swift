@@ -8,13 +8,11 @@ class AlbumsViewController: UIViewController {
 
     // MARK: - Properties
 
-    private let viewConverter: AlbumsViewStateConverter
     private let downloadService: AlbumsService
 
     // MARK: - Life Cycle
 
-    init(viewConverter: AlbumsViewStateConverter, downloadService: AlbumsService) {
-        self.viewConverter = viewConverter
+    init(downloadService: AlbumsService) {
         self.downloadService = downloadService
         super.init(nibName: nil, bundle: nil)
     }
@@ -24,9 +22,22 @@ class AlbumsViewController: UIViewController {
     }
 }
 
+// MARK: - ViewState
 extension AlbumsViewController {
     enum State {
         case success(albums: [AlbumTableViewCell.State])
         case error(String)
+    }
+}
+
+// MARK: - ViewStateConverter
+private extension AlbumsViewController {
+    func convert(result: Result<[Album], NetworkError>) -> AlbumsViewController.State {
+        switch result {
+        case .success(let albums):
+            return .success(albums: albums.map { AlbumTableViewCell.State(id: $0.id, title: $0.title) })
+        case .failure:
+            return .error("Unknown error")
+        }
     }
 }

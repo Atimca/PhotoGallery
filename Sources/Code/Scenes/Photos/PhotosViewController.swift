@@ -14,12 +14,12 @@ class PhotosViewController: UIViewController {
     }
 
     // MARK: - UI Components
-    private let tableView: UITableView = {
-        let table = UITableView()
-        table.translatesAutoresizingMaskIntoConstraints = false
-        table.register(AlbumTableViewCell.self, forCellReuseIdentifier: AlbumTableViewCell.identifier)
-        table.rowHeight = Constants.TableView.rowHeight
-        return table
+    private let collectionView: UICollectionView = {
+        let flow = UICollectionViewFlowLayout()
+        let collection = UICollectionView(frame: .zero, collectionViewLayout: flow)
+        collection.translatesAutoresizingMaskIntoConstraints = false
+        collection.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: PhotoCollectionViewCell.identifier)
+        return collection
     }()
 
     private let activityIndicator: UIActivityIndicatorView = {

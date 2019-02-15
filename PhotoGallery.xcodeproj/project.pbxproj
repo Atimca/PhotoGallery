@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E45D731F2216B22300A393AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E45D731E2216B22300A393AB /* Assets.xcassets */; };
 		E46456CB2216A9B600CD12B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46456CA2216A9B600CD12B3 /* AppDelegate.swift */; };
-		E46456D02216A9B600CD12B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E46456CE2216A9B600CD12B3 /* Main.storyboard */; };
-		E46456D22216A9B900CD12B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E46456D12216A9B900CD12B3 /* Assets.xcassets */; };
 		E46456D52216A9B900CD12B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E46456D32216A9B900CD12B3 /* LaunchScreen.storyboard */; };
 		EDDB7EDD4E85F38F7DDE60BC /* Pods_PhotoGallery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C150559B61E6B4EB8D5EFF30 /* Pods_PhotoGallery.framework */; };
 /* End PBXBuildFile section */
@@ -18,10 +17,9 @@
 		007BDE2903F677F531B45AE6 /* Pods-PhotoGallery.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoGallery.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoGallery/Pods-PhotoGallery.debug.xcconfig"; sourceTree = "<group>"; };
 		6B73BEBAD8F5BA99B1143FFF /* Pods-PhotoGallery.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoGallery.release.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoGallery/Pods-PhotoGallery.release.xcconfig"; sourceTree = "<group>"; };
 		C150559B61E6B4EB8D5EFF30 /* Pods_PhotoGallery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhotoGallery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E45D731E2216B22300A393AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E46456C72216A9B600CD12B3 /* PhotoGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E46456CA2216A9B600CD12B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E46456CF2216A9B600CD12B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E46456D12216A9B900CD12B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E46456D42216A9B900CD12B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E46456D62216A9B900CD12B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -55,10 +53,28 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		E45D731C2216B20B00A393AB /* Code */ = {
+			isa = PBXGroup;
+			children = (
+				E46456CA2216A9B600CD12B3 /* AppDelegate.swift */,
+				E46456D32216A9B900CD12B3 /* LaunchScreen.storyboard */,
+			);
+			path = Code;
+			sourceTree = "<group>";
+		};
+		E45D731D2216B20E00A393AB /* Recources */ = {
+			isa = PBXGroup;
+			children = (
+				E46456D62216A9B900CD12B3 /* Info.plist */,
+				E45D731E2216B22300A393AB /* Assets.xcassets */,
+			);
+			path = Recources;
+			sourceTree = "<group>";
+		};
 		E46456BE2216A9B600CD12B3 = {
 			isa = PBXGroup;
 			children = (
-				E46456C92216A9B600CD12B3 /* PhotoGallery */,
+				E46456C92216A9B600CD12B3 /* Sources */,
 				E46456C82216A9B600CD12B3 /* Products */,
 				6CE63D0E19A2215CF330B9F7 /* Pods */,
 				54F1F24EF2E7B7E3D2517490 /* Frameworks */,
@@ -73,16 +89,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E46456C92216A9B600CD12B3 /* PhotoGallery */ = {
+		E46456C92216A9B600CD12B3 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				E46456CA2216A9B600CD12B3 /* AppDelegate.swift */,
-				E46456CE2216A9B600CD12B3 /* Main.storyboard */,
-				E46456D12216A9B900CD12B3 /* Assets.xcassets */,
-				E46456D32216A9B900CD12B3 /* LaunchScreen.storyboard */,
-				E46456D62216A9B900CD12B3 /* Info.plist */,
+				E45D731C2216B20B00A393AB /* Code */,
+				E45D731D2216B20E00A393AB /* Recources */,
 			);
-			path = PhotoGallery;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -145,9 +158,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E45D731F2216B22300A393AB /* Assets.xcassets in Resources */,
 				E46456D52216A9B900CD12B3 /* LaunchScreen.storyboard in Resources */,
-				E46456D22216A9B900CD12B3 /* Assets.xcassets in Resources */,
-				E46456D02216A9B600CD12B3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,14 +226,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		E46456CE2216A9B600CD12B3 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E46456CF2216A9B600CD12B3 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		E46456D32216A9B900CD12B3 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -356,7 +360,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KSPVBX34L6;
-				INFOPLIST_FILE = PhotoGallery/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Recources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -375,7 +379,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KSPVBX34L6;
-				INFOPLIST_FILE = PhotoGallery/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Recources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

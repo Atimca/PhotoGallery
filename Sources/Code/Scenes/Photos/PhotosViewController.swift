@@ -8,7 +8,8 @@ class PhotosViewController: UIViewController {
 
     // MARK: - Properties
 
-    private let downloadService: AlbumsService
+    private let downloadService: PhotosService
+    private let albumId: Int
     private var state: State = .loading {
         didSet { render(with: state) }
     }
@@ -19,6 +20,7 @@ class PhotosViewController: UIViewController {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: flow)
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: PhotoCollectionViewCell.identifier)
+        collection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         return collection
     }()
 
@@ -31,12 +33,13 @@ class PhotosViewController: UIViewController {
 
     // MARK: - Life Cycle
 
-    init(downloadService: AlbumsService) {
+    init(albumId: Int, downloadService: PhotosService) {
+        self.albumId = albumId
         self.downloadService = downloadService
         super.init(nibName: nil, bundle: nil)
         setupLayout()
         render(with: state)
-        updateAlbums()
+        updatePhotos()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -46,15 +49,15 @@ class PhotosViewController: UIViewController {
     // MARK: - Layout
 
     private func setupLayout() {
-        title = "Albums"
+        title = "Photos"
         view.backgroundColor = .white
-        view.addSubview(tableView)
-        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        tableView.dataSource = self
-        tableView.delegate = self
+        view.addSubview(collectionView)
+        collectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        collectionView.dataSource = self
+        collectionView.delegate = self
 
         view.addSubview(activityIndicator)
         activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -64,20 +67,20 @@ class PhotosViewController: UIViewController {
     private func render(with state: State) {
         switch state {
         case .loading:
-            tableView.isHidden = true
+            collectionView.isHidden = true
             activityIndicator.startAnimating()
         case .success:
-            tableView.isHidden = false
-            tableView.reloadData()
+            collectionView.isHidden = false
+            collectionView.reloadData()
             activityIndicator.stopAnimating()
         case .error(let message):
-            tableView.isHidden = true
+            collectionView.isHidden = true
             activityIndicator.stopAnimating()
 
             let alert = UIAlertController(title: "Attention", message: message, preferredStyle: .alert)
             let action = UIAlertAction(title: "Retry", style: .default) { [weak self] _ in
                 guard let self = self else { return }
-                self.updateAlbums()
+                self.updatePhotos()
             }
             alert.addAction(action)
             present(alert, animated: true, completion: nil)
@@ -85,19 +88,21 @@ class PhotosViewController: UIViewController {
     }
 }
 
-// MARK: - UITableViewDataSource
-extension PhotosViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard case .success(let albums) = state else { return 0 }
-        return albums.count
+// MARK: - UICollectionViewDataSource
+extension PhotosViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
+        guard case .success(let photos) = state else { return 0 }
+        return photos.count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard
             case .success(let albums) = state,
-            let cell = tableView.dequeueReusableCell(withIdentifier: AlbumTableViewCell.identifier,
-                                                     for: indexPath) as? AlbumTableViewCell else {
-                                                        return UITableViewCell()
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.identifier,
+                                                          for: indexPath) as? PhotoCollectionViewCell else {
+                                                            return UICollectionViewCell()
         }
         cell.render(with: albums[indexPath.row])
         return cell
@@ -105,18 +110,25 @@ extension PhotosViewController: UITableViewDataSource {
 }
 
 // MARK: - UITableViewDelegate
-extension PhotosViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard case .success(let albums) = state else { return }
-        let vc = ControllerFactory.makePhotosViewController(with: albums[indexPath.row].id)
-        navigationController?.pushViewController(vc, animated: true)
+extension PhotosViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.bounds.width / 3
+        return CGSize(width: width, height: width * 2)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //        guard case .success(let albums) = state else { return }
+        //        let vc = ControllerFactory.makePhotosViewController(with: albums[indexPath.row].id)
+        //        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
 // MARK: - Network
 private extension PhotosViewController {
-    func updateAlbums() {
-        downloadService.getAlbums { [weak self] in
+    func updatePhotos() {
+        downloadService.getPhotos(albumId: albumId) { [weak self] in
             guard let self = self else { return }
             self.state = self.convert(result: $0)
         }
@@ -127,17 +139,20 @@ private extension PhotosViewController {
 extension PhotosViewController {
     enum State {
         case loading
-        case success(albums: [AlbumTableViewCell.State])
+        case success(photos: [PhotoCollectionViewCell.State])
         case error(String)
     }
 }
 
 // MARK: - ViewStateConverter
 private extension PhotosViewController {
-    func convert(result: Result<[Album], NetworkError>) -> AlbumsViewController.State {
+    func convert(result: Result<[Photo], NetworkError>) -> PhotosViewController.State {
         switch result {
-        case .success(let albums):
-            return .success(albums: albums.map { AlbumTableViewCell.State(id: $0.id, title: $0.title) })
+        case .success(let photos):
+            return .success(photos: photos.compactMap { photo in
+                guard let url = URL(string: photo.thumbnailURL) else { return nil }
+                return PhotoCollectionViewCell.State(imageUrl: url, title: photo.title)
+            })
         case .failure:
             return .error("Unknown error")
         }

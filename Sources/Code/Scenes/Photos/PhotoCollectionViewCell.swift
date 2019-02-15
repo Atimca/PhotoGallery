@@ -4,6 +4,18 @@
 
 import UIKit
 
-class PhotoCollectionViewCell: UITableViewCell {
+class PhotoCollectionViewCell: UICollectionViewCell {
     static let identifier = String(describing: PhotoCollectionViewCell.self)
+}
+
+// MARK: - DataDriven
+extension PhotoCollectionViewCell {
+    struct State {
+        let imageUrl: URL
+        let title: String
+    }
+
+    func render(with state: State) {
+
+    }
 }

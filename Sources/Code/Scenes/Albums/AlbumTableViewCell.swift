@@ -14,8 +14,6 @@ class AlbumTableViewCell: UITableViewCell {
         return label
     }()
 
-    private var id: Int?
-
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(label)
@@ -40,7 +38,6 @@ extension AlbumTableViewCell {
 
     func render(with state: State) {
         label.text = state.title
-        id = state.id
     }
 }
 

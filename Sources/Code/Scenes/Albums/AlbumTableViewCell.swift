@@ -29,10 +29,15 @@ class AlbumTableViewCell: UITableViewCell {
     }
 }
 
+// MARK: - DataDriven
 extension AlbumTableViewCell {
     struct State {
         let id: Int
         let title: String
+    }
+
+    func render(with state: State) {
+
     }
 }
 

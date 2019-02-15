@@ -15,7 +15,11 @@ struct AlbumsService {
 
 extension AlbumsService {
     func getAlbums(completion: @escaping (Result<[Album], NetworkError>) -> Void) {
-        networkClient.performGet(endpoint: Constants.endpoint, for: Array<Album>.self, completion: completion)
+        networkClient.performGet(endpoint: Constants.endpoint, for: Array<Album>.self) { result in
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
     }
 }
 

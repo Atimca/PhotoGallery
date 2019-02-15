@@ -10,6 +10,7 @@ enum ControllerFactory {
     }
 
     static func makePhotosViewController(with albumId: Int) -> UIViewController {
-        return UIViewController()
+        return PhotosViewController(albumId: albumId,
+                                    downloadService: PhotosService(networkClient: NetworkClient()))
     }
 }

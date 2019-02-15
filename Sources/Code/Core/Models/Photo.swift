@@ -5,9 +5,9 @@
 import Foundation
 
 struct Photo: Codable {
-    let albumID: Int
+    let albumId: Int
     let id: Int
-    let thumbnailURL: String
+    let thumbnailUrl: String
     let title: String
     let url: String
 }

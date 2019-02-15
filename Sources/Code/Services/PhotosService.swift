@@ -26,7 +26,7 @@ extension PhotosService {
 private extension PhotosService {
     enum Constants {
         static func endpoint(with albumId: Int) -> URL {
-            return URL(string: "https://jsonplaceholder.typicode.com/albums/\(albumId)/photos")!
+            return URL(string: "https://jsonplaceholder.typicode.com/photos?albumId=\(albumId)")!
         }
     }
 }

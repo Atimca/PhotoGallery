@@ -150,7 +150,7 @@ private extension PhotosViewController {
         switch result {
         case .success(let photos):
             return .success(photos: photos.compactMap { photo in
-                guard let url = URL(string: photo.thumbnailURL) else { return nil }
+                guard let url = URL(string: photo.thumbnailUrl) else { return nil }
                 return PhotoCollectionViewCell.State(imageUrl: url, title: photo.title)
             })
         case .failure:

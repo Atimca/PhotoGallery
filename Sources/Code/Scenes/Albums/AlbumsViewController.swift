@@ -6,8 +6,12 @@ import UIKit
 
 class AlbumsViewController: UIViewController {
 
+    // MARK: - Properties
+
     private let viewConverter: AlbumsViewStateConverter
     private let downloadService: AlbumsService
+
+    // MARK: - Life Cycle
 
     init(viewConverter: AlbumsViewStateConverter, downloadService: AlbumsService) {
         self.viewConverter = viewConverter

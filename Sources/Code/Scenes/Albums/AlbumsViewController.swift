@@ -35,7 +35,6 @@ class AlbumsViewController: UIViewController {
         self.downloadService = downloadService
         super.init(nibName: nil, bundle: nil)
         setupLayout()
-        render(with: state)
         updateAlbums()
     }
 
@@ -118,6 +117,7 @@ extension AlbumsViewController: UITableViewDelegate {
 // MARK: - Network
 extension AlbumsViewController {
     private func updateAlbums() {
+        state = .loading
         downloadService.getAlbums { [weak self] in
             guard let self = self else { return }
             self.state = self.convert(result: $0)

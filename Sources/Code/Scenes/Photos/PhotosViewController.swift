@@ -43,7 +43,6 @@ class PhotosViewController: UIViewController {
         self.downloadService = downloadService
         super.init(nibName: nil, bundle: nil)
         setupLayout()
-        render(with: state)
         updatePhotos()
     }
 
@@ -134,6 +133,7 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - Network
 extension PhotosViewController {
     private func updatePhotos() {
+        state = .loading
         downloadService.getPhotos(albumId: albumId) { [weak self] in
             guard let self = self else { return }
             self.state = self.convert(result: $0)

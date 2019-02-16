@@ -49,13 +49,13 @@ class PhotoViewController: UIViewController {
         imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
 
-        nameLabel.topAnchor.constraint(equalTo: imageView.topAnchor,
+        nameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor,
                                        constant: Constants.Title.top).isActive = true
         nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor,
                                             constant: Constants.Title.trailing).isActive = true
         nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,
                                            constant: Constants.Title.leading).isActive = true
-        nameLabel.bottomAnchor.constraint(greaterThanOrEqualTo: view.bottomAnchor,
+        nameLabel.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor,
                                           constant: Constants.Title.bottom).isActive = true
 
         render(with: state)

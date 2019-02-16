@@ -117,7 +117,7 @@ extension AlbumsViewController: UITableViewDelegate {
 
 // MARK: - Network
 private extension AlbumsViewController {
-    func updateAlbums() {
+    private func updateAlbums() {
         downloadService.getAlbums { [weak self] in
             guard let self = self else { return }
             self.state = self.convert(result: $0)

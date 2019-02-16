@@ -10,6 +10,7 @@ class PhotosViewController: UIViewController {
 
     private let downloadService: PhotosService
     private let albumId: Int
+    private var lastPhotos: [Photo] = []
     private var state: State = .loading {
         didSet { render(with: state) }
     }
@@ -125,19 +126,24 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //        guard case .success(let albums) = state else { return }
-        //        let vc = ControllerFactory.makePhotosViewController(with: albums[indexPath.row].id)
-        //        navigationController?.pushViewController(vc, animated: true)
+        let vc = ControllerFactory.makePhotoViewController(with: lastPhotos[indexPath.row])
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
 // MARK: - Network
 private extension PhotosViewController {
-    func updatePhotos() {
+    private func updatePhotos() {
         downloadService.getPhotos(albumId: albumId) { [weak self] in
             guard let self = self else { return }
             self.state = self.convert(result: $0)
+            self.saveLast(result: $0)
         }
+    }
+
+    private func saveLast(result: Result<[Photo], NetworkError>) {
+        guard case .success(let photos) = result else { return }
+        lastPhotos = photos
     }
 }
 

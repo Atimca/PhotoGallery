@@ -15,6 +15,6 @@ enum ControllerFactory {
     }
 
     static func makePhotoViewController(with photo: Photo) -> UIViewController {
-        return UIViewController()
+        return PhotoViewController(photo: photo)
     }
 }

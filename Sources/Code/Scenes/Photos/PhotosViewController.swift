@@ -132,7 +132,7 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
 }
 
 // MARK: - Network
-private extension PhotosViewController {
+extension PhotosViewController {
     private func updatePhotos() {
         downloadService.getPhotos(albumId: albumId) { [weak self] in
             guard let self = self else { return }

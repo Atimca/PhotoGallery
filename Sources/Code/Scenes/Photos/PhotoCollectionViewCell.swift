@@ -33,7 +33,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         imageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
 
-        titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         titleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: contentView.leadingAnchor,
                                             constant: Constants.Label.leading).isActive = true
         titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor,

@@ -80,6 +80,7 @@ class AlbumsViewController: UIViewController {
                 self.updateAlbums()
             }
             alert.addAction(action)
+            alert.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
             present(alert, animated: true, completion: nil)
         }
     }
@@ -107,6 +108,7 @@ extension AlbumsViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension AlbumsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         guard case .success(let albums) = state else { return }
         let vc = ControllerFactory.makePhotosViewController(with: albums[indexPath.row].id)
         navigationController?.pushViewController(vc, animated: true)

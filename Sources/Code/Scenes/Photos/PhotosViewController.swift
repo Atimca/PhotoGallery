@@ -17,10 +17,14 @@ class PhotosViewController: UIViewController {
     // MARK: - UI Components
     private let collectionView: UICollectionView = {
         let flow = UICollectionViewFlowLayout()
+        flow.scrollDirection = .vertical
+        flow.minimumLineSpacing = Constants.Collection.spacing
+        flow.minimumInteritemSpacing = Constants.Collection.spacing
         let collection = UICollectionView(frame: .zero, collectionViewLayout: flow)
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: PhotoCollectionViewCell.identifier)
         collection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collection.backgroundColor = .white
         return collection
     }()
 
@@ -83,6 +87,7 @@ class PhotosViewController: UIViewController {
                 self.updatePhotos()
             }
             alert.addAction(action)
+            alert.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
             present(alert, animated: true, completion: nil)
         }
     }
@@ -114,8 +119,9 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.bounds.width / 3
-        return CGSize(width: width, height: width * 2)
+        let spacingDelta = Constants.Collection.rowsPerLine * Constants.Collection.spacing
+        let width = collectionView.bounds.width / Constants.Collection.rowsPerLine - spacingDelta
+        return CGSize(width: width, height: width + Constants.Collection.heightInset)
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -155,6 +161,17 @@ private extension PhotosViewController {
             })
         case .failure:
             return .error("Unknown error")
+        }
+    }
+}
+
+// MARK: - Constants
+private extension PhotosViewController {
+    enum Constants {
+        enum Collection {
+            static let rowsPerLine: CGFloat = 3
+            static let spacing: CGFloat = 4
+            static let heightInset: CGFloat = 20
         }
     }
 }

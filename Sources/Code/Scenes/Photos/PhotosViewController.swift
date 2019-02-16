@@ -16,6 +16,7 @@ class PhotosViewController: UIViewController {
     }
 
     // MARK: - UI Components
+
     private let collectionView: UICollectionView = {
         let flow = UICollectionViewFlowLayout()
         flow.scrollDirection = .vertical
@@ -42,12 +43,16 @@ class PhotosViewController: UIViewController {
         self.albumId = albumId
         self.downloadService = downloadService
         super.init(nibName: nil, bundle: nil)
-        setupLayout()
-        updatePhotos()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupLayout()
+        updatePhotos()
     }
 
     // MARK: - Layout

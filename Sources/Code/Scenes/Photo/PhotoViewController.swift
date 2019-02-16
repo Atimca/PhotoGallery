@@ -15,6 +15,7 @@ class PhotoViewController: UIViewController {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFill
+        view.heightAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         return view
     }()
 
@@ -47,7 +48,6 @@ class PhotoViewController: UIViewController {
         imageView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
 
         nameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor,
                                        constant: Constants.Title.top).isActive = true

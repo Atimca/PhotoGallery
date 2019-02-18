@@ -1,6 +1,9 @@
 # PhotoGallery
 
-There are two examples of my code. One was made as easy as possible. And another one with all fancy architecture and testing. This is the first one, another you can get by [the link](https://github.com/Atimca/Currencies)
+There are three examples of my code:
+1) [With architectural approach and clean code](https://github.com/Atimca/Currencies)
+2) **[Regarding to one screen task with the `KISS` principle](https://github.com/Atimca/PhotoGallery)**
+3) [Just a task written on Objective-C](https://github.com/Atimca/EmployeeSalaries)
 
 **Task:**
 

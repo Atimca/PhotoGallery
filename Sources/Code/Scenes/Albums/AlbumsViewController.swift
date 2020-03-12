@@ -23,7 +23,13 @@ class AlbumsViewController: UIViewController {
     }()
 
     private let activityIndicator: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
+        let style: UIActivityIndicatorView.Style
+        if #available(iOS 13.0, *) {
+            style = .medium
+        } else {
+            style = .gray
+        }
+        let activity = UIActivityIndicatorView(style: style)
         activity.translatesAutoresizingMaskIntoConstraints = false
         activity.hidesWhenStopped = true
         return activity
@@ -50,7 +56,11 @@ class AlbumsViewController: UIViewController {
 
     private func setupLayout() {
         title = "Albums"
-        view.backgroundColor = .white
+        if #available(iOS 13.0, *) {
+            view.backgroundColor = .systemBackground
+        } else {
+            view.backgroundColor = .white
+        }
         view.addSubview(tableView)
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true

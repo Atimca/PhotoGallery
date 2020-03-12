@@ -26,12 +26,22 @@ class PhotosViewController: UIViewController {
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: PhotoCollectionViewCell.identifier)
         collection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-        collection.backgroundColor = .white
+        if #available(iOS 13.0, *) {
+            collection.backgroundColor = .systemBackground
+        } else {
+            collection.backgroundColor = .white
+        }
         return collection
     }()
 
     private let activityIndicator: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
+        let style: UIActivityIndicatorView.Style
+        if #available(iOS 13.0, *) {
+            style = .medium
+        } else {
+            style = .gray
+        }
+        let activity = UIActivityIndicatorView(style: style)
         activity.translatesAutoresizingMaskIntoConstraints = false
         activity.hidesWhenStopped = true
         return activity
@@ -59,7 +69,11 @@ class PhotosViewController: UIViewController {
 
     private func setupLayout() {
         title = "Photos"
-        view.backgroundColor = .white
+        if #available(iOS 13.0, *) {
+            view.backgroundColor = .systemBackground
+        } else {
+            view.backgroundColor = .white
+        }
         view.addSubview(collectionView)
         collectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
